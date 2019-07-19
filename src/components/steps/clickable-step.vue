@@ -16,7 +16,7 @@
         <i class="el-step__line-inner" :style="lineStyle"></i>
       </div>
 
-      <div class="el-step__icon clickable__step__icon" :class="`is-${icon ? 'icon' : 'text'}`">
+      <div class="el-step__icon" :class="iconClass">
         <slot v-if="currentStatus !== 'success' && currentStatus !== 'error'" name="icon">
           <i v-if="icon" class="el-step__icon-inner" :class="[icon]"></i>
           <div class="el-step__icon-inner" v-if="!icon && !isSimple">{{ index + 1 }}</div>
@@ -49,7 +49,11 @@ export default {
     title: String,
     icon: String,
     description: String,
-    status: String
+    status: String,
+    clickable: {
+      type: Boolean,
+      default: true
+    }
   },
 
   data() {
@@ -73,6 +77,14 @@ export default {
   },
 
   computed: {
+    iconClass() {
+      return {
+        clickable__step__icon: this.clickable,
+        unclickable__step__icon: !this.clickable,
+        "is-icon": this.icon,
+        "is-text": !this.icon
+      };
+    },
     currentStatus() {
       return this.status || this.internalStatus;
     },
@@ -162,7 +174,9 @@ export default {
     },
 
     onClick() {
-      this.$parent.onStepClick(this.index);
+      if (this.clickable) {
+        this.$parent.onStepClick(this.index);
+      }
     }
   },
 
@@ -186,6 +200,10 @@ export default {
 <style>
 .clickable__step__icon:hover {
   cursor: pointer;
+}
+
+.unclickable__step__icon:hover {
+  cursor: not-allowed;
 }
 </style>
 

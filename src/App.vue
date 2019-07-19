@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <clickable-steps :space="200" :active="1" finish-status="success" @click="onStepClick">
-      <clickable-step title="步骤 1"></clickable-step>
+      <clickable-step title="步骤 1" :clickable="false"></clickable-step>
       <clickable-step title="步骤 2"></clickable-step>
       <clickable-step title="步骤 3"></clickable-step>
     </clickable-steps>
