@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <clickable-steps :space="200" :active="1" finish-status="success" @click="onStepClick">
+      <clickable-step title="步骤 1"></clickable-step>
+      <clickable-step title="步骤 2"></clickable-step>
+      <clickable-step title="步骤 3"></clickable-step>
+    </clickable-steps>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ClickableSteps from "./components/steps/clickable-steps";
+import ClickableStep from "./components/steps/clickable-step";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    "clickable-steps": ClickableSteps,
+    "clickable-step": ClickableStep
+  },
+  methods: {
+    onStepClick(step) {
+      console.log(step);
+    }
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
